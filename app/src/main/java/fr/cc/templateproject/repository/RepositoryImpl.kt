@@ -1,7 +1,10 @@
 package fr.cc.templateproject.repository
 
 import fr.cc.templateproject.model.StoreItem
+import fr.cc.templateproject.service.TemplateService
 
-interface RepositoryImpl {
-    suspend fun getProducts(): List<StoreItem>
+class RepositoryImpl(val templateService: TemplateService) : Repository {
+    override suspend fun getProducts(): List<StoreItem> {
+        return templateService.getProducts()
+    }
 }

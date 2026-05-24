@@ -3,7 +3,7 @@ package fr.cc.templateproject.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.cc.templateproject.model.StoreItem
-import fr.cc.templateproject.repository.Repository
+import fr.cc.templateproject.repository.RepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ sealed class StoreItemsUiState() {
     class ErrorUiState(val throwable: Throwable) : StoreItemsUiState()
 }
 
-class StoreItemsViewModel(val repository: Repository) : ViewModel() {
+class StoreItemsViewModel(val repository: RepositoryImpl) : ViewModel() {
     private val _uiState = MutableStateFlow<StoreItemsUiState>(StoreItemsUiState.Loading)
     val uiState: StateFlow<StoreItemsUiState> = _uiState
 

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,6 +9,7 @@ plugins {
 android {
     namespace = "fr.cc.templateproject"
     compileSdk = 36
+    android.buildFeatures.buildConfig = true
 
     defaultConfig {
         applicationId = "fr.cc.templateproject"
@@ -16,6 +19,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "STORE_BASE_URL", "\"https://fakestoreapi.com\"")
+
     }
 
     buildTypes {
@@ -28,11 +34,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
     buildFeatures {
         compose = true
@@ -58,4 +66,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
+    implementation(libs.koin)
+    implementation(libs.koinCore)
+    implementation(libs.kotlin.serialization)
+    implementation(libs.retrofit.serialization)
 }
