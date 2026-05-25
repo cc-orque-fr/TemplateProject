@@ -1,16 +1,20 @@
 package fr.cc.templateproject.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import fr.cc.templateproject.repository.RepositoryImpl
+import fr.cc.templateproject.BuildConfig
 import fr.cc.templateproject.repository.Repository
+import fr.cc.templateproject.repository.RepositoryImpl
 import fr.cc.templateproject.service.TemplateService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import org.koin.core.scope.get
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
+
+private val json = Json { ignoreUnknownKeys = true }
 
 val networkModule = module {
 
@@ -32,20 +36,20 @@ val networkModule = module {
 
 
     single {
-          val contentType = "application/json".toMediaType()
-          Retrofit.Builder()
-              .baseUrl("") // Replace with your API base URL
-              .client(get())
-              .addConverterFactory(Json { ignoreUnknownKeys = true }.asConverterFactory(contentType))
-              .build()
-      }
+        val contentType = "application/json".toMediaType()
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.STORE_BASE_URL) // Replace with your API base URL
+            .client(get())
+            .addConverterFactory(json.asConverterFactory(contentType))
+            .build()
+    }
 
-      single<TemplateService> {
-          get<Retrofit>().create(TemplateService::class.java)
-      }
+    single<TemplateService> {
+        get<Retrofit>().create(TemplateService::class.java)
+    }
 
-      single<Repository> {
-          RepositoryImpl(get())
-      }
+    single<Repository> {
+        RepositoryImpl(get(TemplateService::class.java))
+    }
 
 }

@@ -13,6 +13,7 @@ retrofitVersion = "2.11.0"
 koinVersion = "4.2.1"
 kotlinSerializationVersion = "1.11.0"
 retrofitSerializationVersion = "1.0.0"
+coilVersion = "2.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,7 +36,7 @@ koin = { module = "io.insert-koin:koin-android", version.ref = "koinVersion" }
 koinCore = { module = "io.insert-koin:koin-core", version.ref = "koinVersion" }
 kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationVersion" }
 retrofit-serialization = {module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter",version.ref = "retrofitSerializationVersion"}
-
+coil = { module = "io.coil-kt:coil-compose",version.ref= "coilVersion"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
